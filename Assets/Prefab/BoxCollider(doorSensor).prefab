@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 6191356520872480788}
   - component: {fileID: 3066723932399570403}
   m_Layer: 0
-  m_Name: BoxCollider(door)
+  m_Name: BoxCollider(doorSensor)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

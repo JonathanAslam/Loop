@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class door_script : MonoBehaviour
+public class exit_room_script : MonoBehaviour
 {
     [SerializeField] private GameObject door;
     private BoxCollider boxColliderTrigger;
@@ -12,8 +12,7 @@ public class door_script : MonoBehaviour
     private Vector3 originalPosition;
     private Coroutine currentDoorRoutine;
 
-    //value changed in the lockDoorScript
-    private bool doorLocked = false;
+    private bool doorLocked = true;
 
     void Awake()
     {
@@ -41,15 +40,6 @@ public class door_script : MonoBehaviour
         doorCollider.isTrigger = false;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player") && !isOpened)
-        {
-            Debug.Log("Player entered door trigger");
-            OpenDoor();
-        }
-    }
-
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player") && isOpened)
@@ -58,7 +48,7 @@ public class door_script : MonoBehaviour
             CloseDoor();
         }
     }
-    public void OpenDoor()
+    public void OpenDoor() //call with onclick function instead of OnTriggerEnter
     {
         if (!isOpened && door != null && !doorLocked)
         {
@@ -67,7 +57,6 @@ public class door_script : MonoBehaviour
                 StopCoroutine(currentDoorRoutine);
             }
             currentDoorRoutine = StartCoroutine(HandleDoorLogic(door.transform.position, openPosition));
-            // doorCollider.enabled = false;
             isOpened = true;
         }
     }
@@ -76,7 +65,6 @@ public class door_script : MonoBehaviour
     {
         if (isOpened && door != null)
         {
-            // doorCollider.enabled = true;
             if (currentDoorRoutine != null)
             {
                 StopCoroutine(currentDoorRoutine);
