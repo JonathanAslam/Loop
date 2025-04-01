@@ -6,7 +6,7 @@ public class door_script : MonoBehaviour
     [SerializeField] private GameObject door;
     private BoxCollider boxColliderTrigger;
     [SerializeField] private BoxCollider doorCollider;
-    [SerializeField] private Vector3 openPosition;
+    private Vector3 openPosition;
     [SerializeField] private float doorSpeed = 1.0f;
     private bool isOpened = false;
     private Vector3 originalPosition;
@@ -70,6 +70,22 @@ public class door_script : MonoBehaviour
             // doorCollider.enabled = false;
             isOpened = true;
         }
+        else
+        {
+            Debug.Log("Cant Open door");
+            if (door == null)
+            {
+                Debug.Log("Door GameObject is not assigned in the inspector");
+            }
+            if (doorLocked)
+            {
+                Debug.Log("Door is locked");
+            }
+            if (isOpened)
+            {
+                Debug.Log("Door is already opened");
+            }
+        }
     }
 
     private void CloseDoor()
@@ -88,7 +104,8 @@ public class door_script : MonoBehaviour
 
     private IEnumerator HandleDoorLogic(Vector3 startPosition, Vector3 endPosition)
     {
-        if (doorSpeed <= 0) {
+        if (doorSpeed <= 0)
+        {
             Debug.LogWarning("Door speed is set to 0 or less, setting it to 1");
             doorSpeed = 1.0f;
         }

@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
 
 public class exit_room_script : MonoBehaviour
@@ -6,7 +7,7 @@ public class exit_room_script : MonoBehaviour
     [SerializeField] private GameObject door;
     private BoxCollider boxColliderTrigger;
     [SerializeField] private BoxCollider doorCollider;
-    [SerializeField] private Vector3 openPosition;
+    private Vector3 openPosition;
     [SerializeField] private float doorSpeed = 1.0f;
     private bool isOpened = false;
     private Vector3 originalPosition;
@@ -40,6 +41,10 @@ public class exit_room_script : MonoBehaviour
         doorCollider.isTrigger = false;
     }
 
+    public void unlockDoor() {
+        doorLocked = false;
+    }
+
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player") && isOpened)
@@ -48,7 +53,7 @@ public class exit_room_script : MonoBehaviour
             CloseDoor();
         }
     }
-    public void OpenDoor() //call with onclick function instead of OnTriggerEnter
+    public void OpenDoor()
     {
         if (!isOpened && door != null && !doorLocked)
         {
@@ -57,7 +62,24 @@ public class exit_room_script : MonoBehaviour
                 StopCoroutine(currentDoorRoutine);
             }
             currentDoorRoutine = StartCoroutine(HandleDoorLogic(door.transform.position, openPosition));
+            // doorCollider.enabled = false;
             isOpened = true;
+        }
+        else
+        {
+            Debug.Log("Cant Open door");
+            if (door == null)
+            {
+                Debug.Log("Door GameObject is not assigned in the inspector");
+            }
+            if (doorLocked)
+            {
+                Debug.Log("Door is locked");
+            }
+            if (isOpened)
+            {
+                Debug.Log("Door is already opened");
+            }
         }
     }
 
@@ -76,7 +98,8 @@ public class exit_room_script : MonoBehaviour
 
     private IEnumerator HandleDoorLogic(Vector3 startPosition, Vector3 endPosition)
     {
-        if (doorSpeed <= 0) {
+        if (doorSpeed <= 0)
+        {
             Debug.LogWarning("Door speed is set to 0 or less, setting it to 1");
             doorSpeed = 1.0f;
         }
