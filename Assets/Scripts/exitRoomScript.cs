@@ -28,6 +28,7 @@ public class exit_room_script : MonoBehaviour
     {
         if (door != null)
         {
+            isOpened = false;
             originalPosition = door.transform.position;
             openPosition = originalPosition + Vector3.up * 5.0f;
             doorCollider.enabled = true;
@@ -35,24 +36,17 @@ public class exit_room_script : MonoBehaviour
         }
     }
 
+
     public void setDoorLocked()
     {
         doorLocked = true;
-        doorCollider.isTrigger = false;
     }
 
-    public void unlockDoor() {
+    public void unlockDoor()
+    {
         doorLocked = false;
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player") && isOpened)
-        {
-            Debug.Log("Player exited door trigger");
-            CloseDoor();
-        }
-    }
     public void OpenDoor()
     {
         if (!isOpened && door != null && !doorLocked)
@@ -62,38 +56,27 @@ public class exit_room_script : MonoBehaviour
                 StopCoroutine(currentDoorRoutine);
             }
             currentDoorRoutine = StartCoroutine(HandleDoorLogic(door.transform.position, openPosition));
-            // doorCollider.enabled = false;
             isOpened = true;
-        }
-        else
-        {
-            Debug.Log("Cant Open door");
-            if (door == null)
-            {
-                Debug.Log("Door GameObject is not assigned in the inspector");
-            }
-            if (doorLocked)
-            {
-                Debug.Log("Door is locked");
-            }
-            if (isOpened)
-            {
-                Debug.Log("Door is already opened");
-            }
         }
     }
 
-    private void CloseDoor()
+    public void CloseDoor(bool forceClose)
     {
-        if (isOpened && door != null)
+        if ((isOpened || forceClose) && door != null)
         {
+            isOpened = false;
+            Debug.Log("Door is now closed. isOpened set to false.");
             if (currentDoorRoutine != null)
             {
                 StopCoroutine(currentDoorRoutine);
             }
             currentDoorRoutine = StartCoroutine(HandleDoorLogic(door.transform.position, originalPosition));
-            isOpened = false;
         }
+        else
+        {
+            Debug.Log("CloseDoor() not executed. Door is already closed or another issue occurred.");
+        }
+
     }
 
     private IEnumerator HandleDoorLogic(Vector3 startPosition, Vector3 endPosition)

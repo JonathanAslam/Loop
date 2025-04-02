@@ -41,6 +41,12 @@ public class door_script : MonoBehaviour
         doorCollider.isTrigger = false;
     }
 
+    public void setDoorUnlocked()
+    {
+        doorLocked = false;
+        doorCollider.isTrigger = true;
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player") && !isOpened)
@@ -67,24 +73,7 @@ public class door_script : MonoBehaviour
                 StopCoroutine(currentDoorRoutine);
             }
             currentDoorRoutine = StartCoroutine(HandleDoorLogic(door.transform.position, openPosition));
-            // doorCollider.enabled = false;
             isOpened = true;
-        }
-        else
-        {
-            Debug.Log("Cant Open door");
-            if (door == null)
-            {
-                Debug.Log("Door GameObject is not assigned in the inspector");
-            }
-            if (doorLocked)
-            {
-                Debug.Log("Door is locked");
-            }
-            if (isOpened)
-            {
-                Debug.Log("Door is already opened");
-            }
         }
     }
 
@@ -92,7 +81,6 @@ public class door_script : MonoBehaviour
     {
         if (isOpened && door != null)
         {
-            // doorCollider.enabled = true;
             if (currentDoorRoutine != null)
             {
                 StopCoroutine(currentDoorRoutine);

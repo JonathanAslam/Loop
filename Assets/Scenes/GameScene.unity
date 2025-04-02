@@ -357,6 +357,11 @@ Transform:
   - {fileID: 1498029419}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &377024827 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 6796960677975087671, guid: 15f1216cf11014a9daa5df29eafe0bd0, type: 3}
+  m_PrefabInstance: {fileID: 5754490775424530522}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &382745176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,7 +1009,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9117398525853998813, guid: 0a9f9dfe1301348b59c0f26667c39ada, type: 3}
   m_PrefabInstance: {fileID: 4943772848132674714}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &737891024
+--- !u!114 &737891029
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1284,6 +1289,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &931021829 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 8532015566608264074, guid: 15f1216cf11014a9daa5df29eafe0bd0, type: 3}
+  m_PrefabInstance: {fileID: 5754490775424530522}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &960809547
 GameObject:
   m_ObjectHideFlags: 0
@@ -1460,7 +1470,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1813,6 +1823,8 @@ MonoBehaviour:
   player: {fileID: 1167937640}
   endTeleporterObject: {fileID: 1976779039}
   startTeleporterObject: {fileID: 539761687928631994}
+  entryCollider: {fileID: 377024827}
+  exitCollider: {fileID: 1310607280}
 --- !u!4 &1735213792
 Transform:
   m_ObjectHideFlags: 0
@@ -2599,6 +2611,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5920263261797878063, guid: 0a9f9dfe1301348b59c0f26667c39ada, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7021352591382191327, guid: 0a9f9dfe1301348b59c0f26667c39ada, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7133852993928407281, guid: 0a9f9dfe1301348b59c0f26667c39ada, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -2609,6 +2629,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8600872924208616349, guid: 0a9f9dfe1301348b59c0f26667c39ada, type: 3}
       propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600872924208616349, guid: 0a9f9dfe1301348b59c0f26667c39ada, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8600872924208616349, guid: 0a9f9dfe1301348b59c0f26667c39ada, type: 3}
@@ -2629,7 +2653,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9117398525853998813, guid: 0a9f9dfe1301348b59c0f26667c39ada, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 737891024}
+      addedObject: {fileID: 737891029}
   m_SourcePrefab: {fileID: 100100000, guid: 0a9f9dfe1301348b59c0f26667c39ada, type: 3}
 --- !u!1001 &5754490775424530522
 PrefabInstance:
@@ -2646,7 +2670,7 @@ PrefabInstance:
     - target: {fileID: 3450261818369961083, guid: 15f1216cf11014a9daa5df29eafe0bd0, type: 3}
       propertyPath: roomEntryBoxCollider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 931021829}
     - target: {fileID: 5265894605509211246, guid: 15f1216cf11014a9daa5df29eafe0bd0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
